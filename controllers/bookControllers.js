@@ -1,12 +1,33 @@
 const Book = require('../models/book');
+const Author = require('../models/author');
+const Genre = require('../models/genre');
+const BookInstance = require('../models/bookinstance');
+const async = require('async');
 
-// exports.index = (req, res) => {
-//   res.send('NOT IMPLEMENTED: Site Home Page');
-// }
+// async.parallel({
+//   bookCount: (cb => {
+//     Book.countDocuments({}, cb);
+//   }),
+//   bookInstanceCount: (cb => {
+//     BookInstance.countDocuments({}, cb)
+//   }),
+//   bookInstanceAvailableCount: (cb => {
+//     BookInstance.countDocuments({ status: 'Available'}, cb)
+//   }),
+//   authorCount: (cb => {
+//     Author.countDocuments({}, cb)
+//   }),
+//   genreCount: (cb => {
+//     Genre.countDocuments({}, cb)
+//   }),
+//   function (err, results) {
+//     results.send('NOT IMPLEMENTED')
+//   }
+// })
 
 module.exports = {
   index: (req, res) => {
-    res.send('NOT IMPLEMENTED: Site Home Page');
+    res.send('NOT IMPLEMENTED: Home page')
   },
   bookList: (req, res) => {
     res.send('NOT IMPLEMENTED: Book list');

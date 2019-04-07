@@ -1,8 +1,15 @@
-const express = require('express');
-const router = express.Router();
+const path = require('path');
+const router = require('express').Router();
+const catalogRoute = require('./catalog');
+const homeRoute = require('./home');
+const usersRoute = require('./users');
 
-router.get('/', (req, res, next) => {
-  res.redirect('/catalog');
+router.use('/api/catalog', catalogRoute);
+router.use('/api', homeRoute);
+router.use('/api/users', usersRoute);
+
+router.use((req, res) => {
+  res.sendFile(path.join(__dirname, '../client/public/index.html'));
 });
 
 module.exports = router;
