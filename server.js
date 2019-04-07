@@ -3,8 +3,10 @@ const createError = require('http-errors');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const mongoose = require('mongoose');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const catalogRouter = require('./routes/catalog');
 
 const app = express();
 const PORT = process.env.PORT ||3001;
@@ -17,6 +19,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/catalog', catalogRouter);
 
 app.use((req, res, next) => {
   next(createError(404));
@@ -29,8 +32,13 @@ app.use((err, req, res, next) => {
   res.send('no bueno');
 });
 
-app.listen(PORT, () => {
-  console.log('listening');
-});
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/fullstackdb",
+ { useNewUrlParser: true });
 
-module.exports = app;
+ const db = mongoose.connection
+
+ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+app.listen(PORT, () => {
+  console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
+});
